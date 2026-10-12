@@ -189,6 +189,38 @@ section.chap{padding-block:clamp(3rem,7vw,5rem);border-top:1px solid var(--line)
 .kind.own{border-color:var(--accent);color:var(--accent)}
 .sub-h{font-family:var(--f-display);font-size:1.35rem;margin:2.5rem 0 1rem}
 
+
+/* Coursework */
+.cw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,21rem),1fr));gap:1rem;align-items:start}
+.cw{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:1.1rem;display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.cw.wide{grid-column:1/-1}
+.cw h3{font-size:1.2rem;font-weight:500}
+.cw .unit{font-size:.82rem;color:var(--muted);margin-top:-.2rem}
+.cw p.sum{font-size:.92rem}
+.cw .badges{display:flex;gap:.3rem;flex-wrap:wrap}
+.kind.grp{border-color:var(--band);color:var(--ink);background:var(--band-soft)}
+.kind.hd{border-color:var(--good);color:var(--good)}
+.cw details{border-top:1px solid var(--line);padding-top:.5rem;margin-top:.25rem}
+.cw summary{cursor:pointer;font-size:.88rem;font-weight:500;color:var(--accent);list-style:none;display:flex;align-items:center;gap:.35rem}
+.cw summary::-webkit-details-marker{display:none}
+.cw summary::before{content:"+";font-family:var(--f-mono);width:1rem;display:inline-block}
+.cw details[open] summary::before{content:"−"}
+.cw details ul{margin:.5rem 0 0;padding-left:1.1rem;font-size:.9rem}
+.cw details li{margin-bottom:.3rem}
+.cw .mine{font-size:.88rem;background:var(--band-soft);border-radius:6px;padding:.5rem .65rem;margin-top:.5rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(6.5rem,1fr));gap:.4rem;margin-top:.25rem}
+.stat{border:1px solid var(--line);border-radius:6px;padding:.35rem .5rem;background:var(--paper)}
+.stat b{display:block;font-family:var(--f-display);font-size:1.15rem;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.2}
+.stat span{font-size:.72rem;color:var(--muted)}
+.thumbs{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
+.thumbs button{width:5.5rem;height:3.6rem;padding:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff;cursor:zoom-in}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.cw .chartwrap{overflow-x:auto;margin-top:.4rem}
+.cw .chartwrap svg{display:block;width:100%;min-width:520px;height:auto}
+.cw .chartwrap text{font-family:var(--f-body);fill:var(--muted);font-size:12px}
+.ufo-bar{cursor:pointer}
+.cw-count{font-family:var(--f-mono);font-size:.78rem;color:var(--muted);margin:-.25rem 0 1rem}
+
 /* Gallery */
 .gallery{columns:3 16rem;column-gap:1rem}
 .g-item{break-inside:avoid;margin:0 0 1rem;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -249,7 +281,7 @@ footer{padding-block:2rem 3rem;color:var(--muted);font-size:.85rem;border-top:1p
       <a href="#education">Education</a>
       <a href="#cases">Case studies</a>
       <a href="#research">Research</a>
-      <a href="#notebooks">Notebooks</a>
+      <a href="#notebooks">Coursework</a>
       <a href="#gallery">Gallery</a>
       <a href="#skills">Skills</a>
       <a href="#recognition">Recognition</a>
@@ -335,6 +367,17 @@ footer{padding-block:2rem 3rem;color:var(--muted);font-size:.85rem;border-top:1p
             <li>Weighted Average Mark <b>75.6</b>, Distinction average (as at July 2026)</li>
             <li>Vice-Chancellor's International Scholarship, top 1% of international applicants</li>
           </ul>
+          <div class="label" style="margin-top:1rem">Completed units</div>
+          <div class="chips">
+            <span class="chip">BUSA6004 Inference, Modelling &amp; Forecasting <b>HD</b></span>
+            <span class="chip">COMP6200 Data Science <b>HD</b></span>
+            <span class="chip">BUSA8000 Techniques in Business Analytics <b>HD</b></span>
+            <span class="chip">BUSA8030 Management of Data, Analytics &amp; Change</span>
+            <span class="chip">ACCG8022 Applied Business Information Systems</span>
+            <span class="chip">BUSA6430 Business Applications of AI</span>
+            <span class="chip">ACCG8048 Business Ethics &amp; Sustainability</span>
+            <span class="chip">COMP6010 Fundamentals of Programming</span>
+          </div>
           <div class="label" style="margin-top:1rem">Enrolled this session</div>
           <div class="chips">
             <span class="chip">BUSA8001 Applied Predictive Analytics</span>
@@ -543,10 +586,19 @@ footer{padding-block:2rem 3rem;color:var(--muted);font-size:.85rem;border-top:1p
   <section class="chap" id="notebooks">
     <div class="wrap">
       <div class="chap-head">
-        <div class="label">Notebooks &amp; code</div>
-        <div><h2>Analysis in Jupyter, builds on GitHub</h2><p>Current Macquarie notebooks, then undergraduate projects. Each strip shows the notebook's structure: <span style="color:var(--accent)">■</span> markdown, <span style="color:var(--muted)">■</span> code, <span style="color:var(--band)">■</span> chart output.</p></div>
+        <div class="label">Coursework</div>
+        <div><h2>Notebooks, code and reports</h2><p>Notable assessments from my Master of Business Analytics, 2025–26. Filter by kind, and open a card for methods and results. Group work is marked, with my part stated.</p></div>
       </div>
-      <div class="cards" id="nbCards"></div>
+      <div class="filters" id="cwFilters">
+        <button class="fbtn" aria-pressed="true" data-f="all">All</button>
+        <button class="fbtn" aria-pressed="false" data-f="notebook">Jupyter notebooks</button>
+        <button class="fbtn" aria-pressed="false" data-f="code">Python code</button>
+        <button class="fbtn" aria-pressed="false" data-f="excel">Excel analysis</button>
+        <button class="fbtn" aria-pressed="false" data-f="report">Reports &amp; essays</button>
+        <button class="fbtn" aria-pressed="false" data-f="group">Group projects</button>
+      </div>
+      <p class="cw-count" id="cwCount" aria-live="polite"></p>
+      <div class="cw-grid" id="cwCards"></div>
       <h3 class="sub-h">Undergraduate projects</h3>
       <div class="cards" id="repoCards"></div>
     </div>
@@ -556,7 +608,13 @@ footer{padding-block:2rem 3rem;color:var(--muted);font-size:.85rem;border-top:1p
     <div class="wrap">
       <div class="chap-head">
         <div class="label">Gallery</div>
-        <div><h2>Dashboards</h2><p>Click any image to open it full size. Use the arrow keys to move through them.</p></div>
+        <div><h2>Dashboards and charts</h2><p>From Power BI, Python notebooks and Excel. Click any image to open it full size, and use the arrow keys to move through them.</p></div>
+      </div>
+      <div class="filters" id="galFilters">
+        <button class="fbtn" aria-pressed="true" data-f="all">All</button>
+        <button class="fbtn" aria-pressed="false" data-f="dash">Power BI</button>
+        <button class="fbtn" aria-pressed="false" data-f="py">Python</button>
+        <button class="fbtn" aria-pressed="false" data-f="xl">Excel</button>
       </div>
       <div class="gallery" id="gal"></div>
     </div>
@@ -853,13 +911,149 @@ drawPubs('all');
 function filterGroup(sel,fn){$$(sel+' .fbtn').forEach(b=>b.addEventListener('click',()=>{$$(sel+' .fbtn').forEach(o=>o.setAttribute('aria-pressed',o===b));fn(b.dataset.f);}));}
 filterGroup('#pubFilters',drawPubs);
 
-/* ---------- Notebooks & repos ---------- */
-const nbs=[
-  {t:'Hotel booking cancellation analytics',k:'Assignment',own:true,u:'BUSA8001 · 2026',d:'Predicting which bookings get cancelled: data audit, exploratory analysis, cleaning and feature engineering, model development, and interpretation of model performance.',stack:'Python · pandas · NumPy · Matplotlib',cells:'mmmmcmcmcmcmcmcmcmmcmcmcmcmcmcmcmmcmcmcm'},
-  {t:'Text processing into MongoDB',k:'Course lab',u:'COMP6210 · Week 5',d:'Tokenising and tagging text with NLTK, then storing and querying the processed documents in MongoDB.',stack:'Python · NLTK · PyMongo',cells:'cccccccccccccccccc'},
+/* ---------- Coursework ---------- */
+const cw=[
+  {id:"lumina",kinds:["notebook","group"],group:"Group of 2",unit:"BUSA8000",uname:"Techniques in Business Analytics",when:"S1 2026",hd:true,
+   t:"Sales analytics and a profitability model for a lighting distributor",
+   sum:"Two years of transaction data (2023–24) combined, cleaned and analysed, then three hypothesis tests and a logistic regression that predicts whether a transaction makes a profit.",
+   stack:"Python · pandas · SciPy · scikit-learn · Matplotlib",
+   stats:[["97.9%","accuracy on 394,936 held-out rows"],["75%","of loss-making orders caught"],["t = 14.7","normal vs credit-only profit"]],
+   pts:["Merged the 2023 and 2024 files after fixing a misspelt column, a duplicated order-number column and empty fields; standardised currency labels (e.g. AUS → AUD)",
+        "Kept outliers and zero-value rows that were real credits or price corrections, but used capped and signed-log versions of sales, cost and quantity for modelling",
+        "Normal orders averaged $125 profit against −$216 for credit price-only orders (p < 0.001). 2024 transactions were larger on average than 2023 ($422 vs $400, p < 0.001). AUD and NZD margins did not differ significantly (p = 0.23)",
+        "Logistic regression on transaction attributes, with sales, cost and profit excluded to avoid leakage. Only 7% of transactions lose money, so I reported recall on that class (75%) alongside overall accuracy"],
+   mine:"My part: data types, date and currency cleaning, skewness and outlier analysis, the district and order-type insights, the normal-vs-credit t-test, and the full prediction model.",
+   imgs:[["img/lumina_confusion.jpg","Confusion matrix for the profitability model"],["img/lumina_predictors.jpg","Strongest predictors of a profitable transaction"],["img/lumina_districts.jpg","Top customer districts by profit"],["img/lumina_ordertype.jpg","Sales and profit by order type"]]},
+  {id:"student",kinds:["notebook"],unit:"BUSA8000",uname:"Techniques in Business Analytics",when:"S1 2026",hd:true,
+   t:"What drives student performance? A multiple regression",
+   sum:"Cleaned a 10,001-row dataset on study habits, then built and fully diagnosed an OLS model of academic performance score.",
+   stack:"Python · pandas · statsmodels · seaborn",
+   stats:[["R² 0.988","adjusted R² 0.988"],["+2.85","points per extra study hour"],["VIF ≈ 1","no multicollinearity"]],
+   pts:["Dropped one row missing 6 of 9 fields and one exact duplicate; checked IQR outliers and skewness (none needed fixing)",
+        "One-hot encoded study method, location and co-curricular involvement, dropping a base level to avoid the dummy-variable trap",
+        "Prior scores (+1.02 per point) and study time were the strongest predictors; sleep (+0.48 per hour) and co-curricular involvement (+0.62) were smaller but significant; study method and age were not significant",
+        "Tested all four OLS assumptions: linearity, independence (Durbin-Watson), constant variance (residuals vs fitted) and normality (histogram and Q-Q plot)"],
+   imgs:[["img/student_linearity.jpg","Linearity check for the two strongest predictors"],["img/student_residuals.jpg","Residuals vs fitted values"],["img/student_qq.jpg","Q-Q plot of residuals"]]},
+  {id:"diamond",kinds:["notebook"],unit:"BUSA8000",uname:"Techniques in Business Analytics",when:"S1 2026",hd:true,
+   t:"Diamond pricing analysis for a jewellery retailer",
+   sum:"Data cleaning, visual analysis and hypothesis testing on 55,843 diamond sales for a fictional retailer deciding what to stock.",
+   stack:"Python · pandas · SciPy · seaborn",
+   stats:[["55,843","rows in"],["53,772","clean rows out"],["146","duplicates removed"]],
+   pts:["Read inconsistent missing-value markers ('na', 'NULL' and others) as missing, then imputed numbers with the median and categories with the mode",
+        "Removed impossible values and invalid categories, then capped IQR outliers",
+        "Four visual analyses: carat vs price, price by cut and by colour, and the price distribution",
+        "Three t-tests. Mean price differs from a $4,000 benchmark (t = −77). Ideal and Premium cuts differ in price. Ideal cuts did not cost more than Good cuts, which goes against the intuitive hypothesis"],
+   imgs:[["img/diamond_carat.jpg","Carat vs price"],["img/diamond_cut.jpg","Price distribution by cut quality"]]},
+  {id:"hotel",kinds:["notebook"],unit:"BUSA8001",uname:"Applied Predictive Analytics",when:"S2 2026",
+   t:"Hotel booking cancellation analytics",
+   sum:"Predicting which bookings get cancelled, from data audit and exploratory analysis through cleaning, feature engineering, model development and interpretation.",
+   stack:"Python · pandas · NumPy · Matplotlib",
+   pts:["Data audit and justification of the cancellation target","Exploratory analysis of booking behaviour","Cleaning and feature engineering","Model development, evaluation and interpretation of performance"]},
+  {id:"ufo",kinds:["code"],unit:"COMP6010",uname:"Fundamentals of Programming",when:"S2 2025",wide:true,
+   t:"UFO sightings analytics in plain Python",
+   sum:"A six-stage program, built without third-party libraries: parse a messy 80,000-row CSV into objects, then answer analytical questions about it. All 21 unit tests pass.",
+   stack:"Python · OOP · unittest · no pandas allowed",
+   stats:[["80,332","sightings parsed"],["21 / 21","unit tests passing"],["2012","busiest year"],["July","busiest month"]],
+   pts:["Stage 1: core logic exercises (comparisons, counting, pair-finding)","Stages 2–3: a Date class with comparison and a client that builds dates from raw data",
+        "Stages 4–5: Ufo and UfoRecord classes holding location, shape, date, duration and comments","Stage 6: reads the NUFORC CSV line by line, skips malformed rows, and computes the busiest year and the sightings by month (chart above)"],
+   chart:"ufo"},
+  {id:"housing",kinds:["excel"],unit:"BUSA6004",uname:"Introduction to Inference, Modelling & Forecasting",when:"S2 2025",hd:true,
+   t:"Property market inference report",
+   sum:"An Excel-based professional report on Sydney property data: cleaning, lookups, descriptive statistics, t-tests, ANOVA, correlation and regression, each tied to a business interpretation.",
+   stack:"Excel · VLOOKUP / XLOOKUP · Analysis ToolPak",
+   stats:[["r = 0.83","bedrooms vs house area"],["R² 0.686","area regression"],["+57 m²","per extra bedroom"]],
+   pts:["Found and removed five corrupted rows (a land size of 0, a build year of 2026, −2 bedrooms, placeholder text)",
+        "One-sample t-test: villa prices are not significantly above a $1.675M benchmark (p = 0.317)",
+        "Welch t-test, apartments vs houses (p = 0.136), and one-way ANOVA across four property types (p = 0.247, η² = 0.014). Property type alone explains little of the price",
+        "Regression of house area on bedrooms and bathrooms: bedrooms add about 57 m² each, and bathrooms add nothing once bedrooms are known. Residual plots used to check the assumptions"],
+   imgs:[["img/housing_correlation.jpg","Bedrooms vs house area"],["img/housing_residual.jpg","Bedrooms residual plot"]]},
+  {id:"schneider",kinds:["report","group"],group:"Group of 5",unit:"BUSA8030",uname:"Management of Data, Analytics & Change",when:"S1 2026",
+   t:"Data-driven transformation strategy for Schneider Electric",
+   sum:"Acting as consultants, we designed a strategy to standardise Regional Administration workflows across SAP, Oracle and Salesforce, cut rework, and move from reactive fixes to early-warning analytics.",
+   stack:"Requirements · process design · Power BI · change management",
+   pts:["Problem statement and business requirements document","User flow diagrams and a user acceptance testing report","Data migration plan for moving purchase orders between legacy and target systems","Change-management and adoption roadmap with measurable benefits"],
+   mine:"My part: I led the Power BI procurement-risk dashboard, shown in full under Case studies. Contribution was split equally across the five members.",
+   link:["#cases","See the dashboard case study"]},
+  {id:"first90",kinds:["report","group"],group:"Group of 6",unit:"BUSA6430",uname:"Business Applications of AI",when:"S1 2026",
+   t:"MQ First90: an AI-supported social business",
+   sum:"A proposal for a service that helps new postgraduate students settle into Macquarie and Sydney in their first 90 days, with an AI chatbot as the front door.",
+   stack:"Business Model Canvas · Value Proposition Canvas · Cynefin · responsible AI",
+   pts:["Business and value proposition canvases, with a value-fit analysis","Cynefin domain and socio-technical analysis of the chatbot","Responsible-AI principles, key risks and controls"],
+   mine:"What I took from it: anyone can build a chatbot with free tools, so the chatbot can't be the advantage. We moved the value into peer experiences, human-led circles and events, with the chatbot as the way in."},
+  {id:"michelin",kinds:["report"],unit:"BUSA6430",uname:"Business Applications of AI",when:"S1 2026",
+   t:"AI industry case study: Michelin",
+   sum:"How Michelin uses AI in operations and in its workforce, analysed with the Business Model Canvas and the Cynefin framework.",
+   stack:"Business Model Canvas · Cynefin",
+   pts:["Business-model effects of AI demand forecasting and inventory optimisation","The capability side: upskilling, AI governance and cross-functional work","Why proof-of-concept-led adoption fits Cynefin's complex domain"]},
+  {id:"cba",kinds:["report"],unit:"BUSA8030",uname:"Management of Data, Analytics & Change",when:"S1 2026",
+   t:"How data analytics is disrupting banking: Commonwealth Bank",
+   sum:"A 2,750-word critical analysis of how analytics and AI are changing Australian banking, using CBA as the case.",
+   stack:"Case analysis · industry research",
+   pts:["Open banking under the Consumer Data Right as a driver of disruption","Analytics as a core capability for fraud, scam and cyber protection","Governance and ethical questions as analytics scales"]},
+  {id:"google",kinds:["report"],unit:"ACCG8022",uname:"Applied Business Information Systems",when:"S2 2025",
+   t:"Google's data centres and sustainable MIS",
+   sum:"A professional-practice report on how management information systems can address the energy use of Google's hyperscale data centres.",
+   stack:"Sustainable MIS · report writing",
+   pts:["The energy challenge behind Search, YouTube and Google Cloud","Google's net-zero commitments set against operational reality","MIS-based recommendations for monitoring and reducing energy use"]},
+  {id:"optimizely",kinds:["report"],unit:"ACCG8022",uname:"Applied Business Information Systems",when:"S2 2025",
+   t:"Optimizely's use of ICT: a critical analysis",
+   sum:"An analysis of the ICT ecosystem behind a digital experience platform, combining published sources with an interview with an industry practitioner.",
+   stack:"ICT strategy · practitioner interview",
+   pts:["The current ICT landscape and an ecosystem overview","The data flow and analytics loop in the platform","Impact, challenges, future outlook and strategic recommendations"]},
+  {id:"singapore",kinds:["report"],unit:"ACCG8022",uname:"Applied Business Information Systems",when:"S2 2025",
+   t:"ICT and strategic decision-making: Singapore's Smart Nation",
+   sum:"How real-time data, digital identity, cashless payments, sensors and AI support government decisions in Singapore's Smart Nation initiative.",
+   stack:"ICT strategy · public sector",
+   pts:["ICT as an enabler of strategic decisions","Governance innovation and urban transformation","Risks and lessons for other governments"]},
+  {id:"gambling",kinds:["report"],unit:"ACCG8048",uname:"Business Ethics & Sustainability",when:"S1 2026",
+   t:"The ethics of gendered online gambling marketing",
+   sum:"A utilitarian analysis of gambling promotions aimed at women through sport, fashion, beauty and belonging. It argues that segmentation isn't wrong in itself, but these campaigns are unethical in their current form.",
+   stack:"Utilitarianism · applied ethics",
+   pts:["Weighs the expected benefits against normalisation, new uptake, impulsive betting and downstream harm","Separates the ethics of market segmentation from the ethics of this particular strategy"]},
+  {id:"westpac",kinds:["report"],unit:"ACCG8048",uname:"Business Ethics & Sustainability",when:"S1 2026",
+   t:"Should Westpac guarantee part-time management roles?",
+   sum:"Tests a union's demand for part-time senior roles against Westpac's 21.2% gender pay gap, using utilitarianism and principles-based ethics.",
+   stack:"Utilitarianism · principles-based ethics",
+   pts:["Sets the union's proposal against Westpac's existing leadership and skills programs","Compares what the two ethical frameworks recommend"]},
 ];
-$('#nbCards').innerHTML=nbs.map(n=>`<article class="nb reveal"><div class="nb-top"><span class="label">${n.u}</span><span class="kind${n.own?' own':''}">${n.k}</span></div><h3>${n.t}</h3><p>${n.d}</p><div class="mono muted">${n.stack}</div>
-  <div class="cells" aria-hidden="true">${[...n.cells].map(c=>`<i class="${c==='m'?'md':c==='i'?'img':''}"></i>`).join('')}</div></article>`).join('');
+const kindLabel={notebook:"Notebook",code:"Python",excel:"Excel",report:"Report",group:"Group"};
+const ufoMonths=[["Jan",5689],["Feb",4665],["Mar",5450],["Apr",5527],["May",5293],["Jun",8152],["Jul",9520],["Aug",8636],["Sep",7589],["Oct",7407],["Nov",6739],["Dec",5665]];
+function drawUfo(){
+  const svg=document.getElementById('ufoChart');if(!svg)return;svg.innerHTML='';
+  const W=760,H=240,L=48,R=10,T=18,B=28,max=10000,bw=(W-L-R)/12;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const y=v=>T+(1-v/max)*(H-T-B);
+  [0,2500,5000,7500,10000].forEach(v=>{el('line',{x1:L,x2:W-R,y1:y(v),y2:y(v),stroke:css('--line')},svg);const t=el('text',{x:L-6,y:y(v)+4,'text-anchor':'end'},svg);t.textContent=v.toLocaleString();});
+  const peak=Math.max(...ufoMonths.map(m=>m[1]));
+  ufoMonths.forEach(([m,v],i)=>{
+    const x=L+i*bw+bw*.18,w=bw*.64;
+    const g=el('g',{class:'ufo-bar',tabindex:0},svg);
+    const r=el('rect',{x,y:y(v),width:w,height:y(0)-y(v),rx:3,fill:v===peak?css('--band'):css('--accent')},g);
+    const tt=el('title',{},g);tt.textContent=`${m}: ${v.toLocaleString()} sightings`;
+    const lb=el('text',{x:x+w/2,y:H-10,'text-anchor':'middle'},svg);lb.textContent=m;
+    const val=el('text',{x:x+w/2,y:y(v)-5,'text-anchor':'middle',style:`fill:${css('--ink')};font-size:11px;opacity:${v===peak?1:0}`},svg);val.textContent=v.toLocaleString();
+    const show=o=>val.style.opacity=o?1:(v===peak?1:0);
+    g.addEventListener('mouseenter',()=>show(1));g.addEventListener('mouseleave',()=>show(0));g.addEventListener('focus',()=>show(1));g.addEventListener('blur',()=>show(0));
+  });
+}
+function drawCw(f){
+  const list=cw.filter(c=>f==='all'||c.kinds.includes(f));
+  $('#cwCount').textContent=`${list.length} of ${cw.length} pieces`;
+  $('#cwCards').innerHTML=list.map(c=>`<article class="cw reveal${c.wide?' wide':''}">
+    <div class="nb-top"><span class="label">${c.unit} · ${c.when}</span><span class="badges">${c.kinds.map(k=>`<span class="kind${k==='group'?' grp':' own'}">${k==='group'?c.group:kindLabel[k]}</span>`).join('')}</span></div>
+    <h3>${c.t}</h3><div class="unit">${c.uname}</div>
+    <p class="sum">${c.sum}</p>
+    ${c.stats?`<div class="stats">${c.stats.map(([b,l])=>`<div class="stat"><b>${b}</b><span>${l}</span></div>`).join('')}</div>`:''}
+    ${c.chart==='ufo'?`<div class="chartwrap"><svg id="ufoChart" role="img" aria-label="Bar chart of UFO sightings by month, computed by my Stage 6 code: peak in July with 9,520"></svg></div><p class="muted" style="font-size:.8rem">Sightings by month, computed by my Stage 6 code on the full dataset. Hover a bar for its count.</p>`:''}
+    <div class="mono muted">${c.stack}</div>
+    <details${c.wide?' open':''}><summary>Methods and results</summary><ul>${c.pts.map(x=>`<li>${x}</li>`).join('')}</ul>
+      ${c.mine?`<div class="mine">${c.mine}</div>`:''}
+      ${c.link?`<p style="margin-top:.5rem"><a href="${c.link[0]}">${c.link[1]} →</a></p>`:''}
+      ${c.imgs?`<div class="thumbs">${c.imgs.map(([src,cap],i)=>`<button type="button" data-cw="${c.id}" data-i="${i}" aria-label="Open ${cap}"><img src="${src}" alt="${cap}" loading="lazy"></button>`).join('')}</div>`:''}
+    </details></article>`).join('');
+  $$('#cwCards .thumbs button').forEach(b=>b.addEventListener('click',()=>{const c=cw.find(x=>x.id===b.dataset.cw);openLb(c.imgs.map(([s,cap])=>({s,c:cap})),+b.dataset.i);}));
+  drawUfo();
+}
 const repos=[
   {t:'Skin cancer diagnosis with a deep CNN',u:'CSE438 · 2022',d:'Image classification of skin lesions with a deep convolutional neural network.',r:'CSE438',stack:'Python · TensorFlow / Keras'},
   {t:'Corona vaccine management system',u:'CSE370 · 2021',d:'Web-based management system with a relational MySQL back end: database design, queries and application logic.',r:'CSE370',stack:'Django · MySQL'},
@@ -871,10 +1065,21 @@ $('#repoCards').innerHTML=repos.map(n=>`<article class="nb reveal"><div class="n
 
 /* ---------- Gallery + lightbox ---------- */
 const gal=[
-  {s:'img/sch_0.jpg',c:'Procurement dashboard: executive view',g:'dash',l:'Power BI'},
-  {s:'img/sch_1.jpg',c:'Procurement dashboard: operational view',g:'dash',l:'Power BI'},
-  {s:'img/sch_2.jpg',c:'Procurement dashboard: financial exposure',g:'dash',l:'Power BI'},
-  {s:'img/sch_3.jpg',c:'Procurement dashboard: automation what-if',g:'dash',l:'Power BI'},
+  {s:'img/sch_0.jpg',c:'Procurement dashboard: executive view',g:'dash',l:'Power BI · BUSA8030'},
+  {s:'img/lumina_confusion.jpg',c:'Profitability model: confusion matrix',g:'py',l:'Python · BUSA8000 group'},
+  {s:'img/housing_correlation.jpg',c:'Bedrooms vs house area, r = 0.83',g:'xl',l:'Excel · BUSA6004'},
+  {s:'img/sch_1.jpg',c:'Procurement dashboard: operational view',g:'dash',l:'Power BI · BUSA8030'},
+  {s:'img/student_residuals.jpg',c:'Regression residuals vs fitted values',g:'py',l:'Python · BUSA8000'},
+  {s:'img/lumina_predictors.jpg',c:'Strongest predictors of a profitable transaction',g:'py',l:'Python · BUSA8000 group'},
+  {s:'img/sch_2.jpg',c:'Procurement dashboard: financial exposure',g:'dash',l:'Power BI · BUSA8030'},
+  {s:'img/diamond_carat.jpg',c:'Diamond carat vs price',g:'py',l:'Python · BUSA8000'},
+  {s:'img/housing_residual.jpg',c:'Bedrooms residual plot',g:'xl',l:'Excel · BUSA6004'},
+  {s:'img/lumina_districts.jpg',c:'Top customer districts by profit',g:'py',l:'Python · BUSA8000 group'},
+  {s:'img/sch_3.jpg',c:'Procurement dashboard: automation what-if',g:'dash',l:'Power BI · BUSA8030'},
+  {s:'img/student_qq.jpg',c:'Q-Q plot of regression residuals',g:'py',l:'Python · BUSA8000'},
+  {s:'img/diamond_cut.jpg',c:'Diamond price by cut quality',g:'py',l:'Python · BUSA8000'},
+  {s:'img/lumina_ordertype.jpg',c:'Sales and profit by order type',g:'py',l:'Python · BUSA8000 group'},
+  {s:'img/student_linearity.jpg',c:'Linearity check for the strongest predictors',g:'py',l:'Python · BUSA8000'},
 ];
 let galList=gal, lbI=0, lastFocus=null;
 function drawGal(f){
@@ -882,7 +1087,7 @@ function drawGal(f){
   $('#gal').innerHTML=galList.map((g,i)=>`<figure class="g-item reveal"><button type="button" data-i="${i}" aria-label="Open ${g.c}"><img src="${g.s}" alt="${g.c}" loading="lazy"></button><figcaption><span>${g.l}</span>${g.c}</figcaption></figure>`).join('');
   $$('#gal button').forEach(b=>b.addEventListener('click',()=>openLb(galList,+b.dataset.i)));
 }
-drawGal('all');
+drawGal('all');filterGroup('#galFilters',drawGal);drawCw('all');filterGroup('#cwFilters',drawCw);redrawers.push(drawUfo);
 let lbSet=gal;
 function showLb(){const g=lbSet[lbI];$('#lbImg').src=g.s;$('#lbImg').alt=g.c;$('#lbCap').textContent=`${g.c} (${lbI+1}/${lbSet.length})`;}
 function openLb(set,i){lastFocus=document.activeElement;lbSet=set;lbI=i;showLb();$('#lb').hidden=false;$('#lbClose').focus();document.body.style.overflow='hidden';}
@@ -903,12 +1108,16 @@ const skills={
     'Agile delivery':['Sprint collaboration with engineering at Analyzen and FirstTrip']},
   'Data & BI':{'SQL':['ERP: SQL data consolidation for Power BI','FirstTrip: booking and user data analysis','BUSA8090 Data & Visualisation'],
     'Power BI':['Procurement risk dashboard (four views)','ERP operational reporting at Analyzen'],
-    'Excel':['FirstTrip: transactional data analysis'],
+    'Excel':['FirstTrip: transactional data analysis','Property inference report: VLOOKUP/XLOOKUP, t-tests, ANOVA, regression (BUSA6004)'],
     'MySQL':['Corona vaccine management system (CSE370)'],
     'MongoDB':['COMP6210 text processing lab']},
-  'Programming & ML':{'Python':['Hotel booking cancellation notebook','COMP6210 text processing lab','Research experiments'],
+  'Statistics & modelling':{'Hypothesis testing':['t-tests on diamond prices and transaction profit (BUSA8000)','One-sample and Welch t-tests, one-way ANOVA (BUSA6004)'],
+    'Linear regression':['Student performance OLS with full assumption checks (BUSA8000)','House area regression in Excel (BUSA6004)'],
+    'Classification':['Logistic regression for transaction profitability (BUSA8000)'],
+    'Data cleaning':['Missing values, duplicates, invalid entries and outliers in every notebook above','Messy CSV parsing in plain Python (COMP6010)']},
+  'Programming & ML':{'Python':['Profitability model and sales analytics (BUSA8000 group)','Student performance regression and diamond pricing notebooks','UFO analytics program with 21 passing unit tests (COMP6010)','Hotel booking cancellation notebook','Research experiments'],
     'TensorFlow / Keras':['Co-authored uncertainty research','Skin cancer CNN project (CSE438)'],
-    'Scikit-learn':['Undergraduate ML coursework'],
+    'Scikit-learn':['Logistic regression profitability model (BUSA8000)','Undergraduate ML coursework'],
     'OpenCV':['Image work in undergraduate ML projects'],
     'Java · C · C++':['Undergraduate CSE coursework'],
     'JavaScript':['Undergraduate web projects'],
